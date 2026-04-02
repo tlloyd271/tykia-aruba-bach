@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aruba Bachelorette — Collage Templates</title>
+<title>Aruba Bachelorette</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Dancing+Script:wght@400;600;700&family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -17,16 +17,15 @@ body {
 
 /* ── NAV ── */
 .nav {
-  position: fixed;
-  top: 24px;
-  left: 0;
-  right: 0;
+  position: sticky;
+  top: 0;
   z-index: 200;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  pointer-events: none;
-  padding: 0 24px;
+  gap: 10px;
+  padding: 12px 16px;
+  background: linear-gradient(to bottom, rgba(12,12,12,0.95), rgba(12,12,12,0.55), rgba(12,12,12,0));
 }
 .nav button {
   font-family: 'Bebas Neue', sans-serif;
@@ -39,7 +38,6 @@ body {
   color: #666;
   cursor: pointer;
   transition: all .3s;
-  pointer-events: auto;
   backdrop-filter: blur(10px);
   max-width: 200px;
   overflow: hidden;
@@ -68,6 +66,24 @@ body {
 
 /* ── PAGE WRAPPER ── */
 .pages { max-width: 500px; margin: 0 auto; padding: 24px 16px 60px; }
+
+@media (max-width: 640px) {
+  .nav {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .nav button {
+    font-size: 11px;
+    padding: 9px 12px;
+    max-width: none;
+    flex: 1;
+  }
+
+  .pages {
+    padding: 14px 12px 48px;
+  }
+}
 
 .pg { display: none; }
 .pg.on { display: block; }
@@ -249,7 +265,7 @@ body {
 
     <!-- "Tykia's Bachelorette" italic header above crown -->
     <div class="txt" style="top:0.5%;left:0;right:0;text-align:center;">
-      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:min(3.8vw,15px);letter-spacing:.07em;color:rgba(195,50,115,0.55);">Tykia's Bachelorette</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:min(3.8vw,15px);letter-spacing:.07em;color:rgba(195,50,115,0.55);">Slumber Party!</div>
     </div>
 
     <!-- Crown SVG — centered -->

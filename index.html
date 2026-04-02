@@ -137,26 +137,46 @@ body {
 /* ── DECORATIVE ── */
 .deco { position: absolute; pointer-events: none; }
 
-/* ── PRINT/SAVE BAR ── */
+/* ── PAGE NAV DROPDOWN ── */
 .savebar {
   display: flex;
   gap: 10px;
   margin-top: 14px;
   justify-content: center;
+  align-items: center;
 }
 .savebtn {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: .1em;
-  padding: 9px 22px;
+  padding: 9px 18px;
   border: 1px solid #444;
   background: transparent;
   color: #aaa;
   cursor: pointer;
   border-radius: 2px;
   transition: all .2s;
+  white-space: nowrap;
 }
 .savebtn:hover { background: #fff; color: #000; border-color: #fff; }
+.page-select {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 12px;
+  letter-spacing: .12em;
+  padding: 9px 16px;
+  border: 1px solid #444;
+  background: #111;
+  color: #aaa;
+  cursor: pointer;
+  border-radius: 2px;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23666'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+  min-width: 200px;
+}
 
 /* ── THEME LABEL ── */
 .theme-label {
@@ -373,6 +393,14 @@ body {
 
   </div>
   <div class="savebar">
+    <select class="page-select" onchange="go(+this.value); this.blur()">
+      <option value="0">Cover</option>
+      <option value="1" selected>Princess Diaries</option>
+      <option value="2">Girls Gone Wild</option>
+      <option value="3">Kiss the Miss</option>
+      <option value="4">Mermaids &amp; Matrimony</option>
+      <option value="5">Golden Girls</option>
+    </select>
     <button class="savebtn" onclick="printPage('t1','Princess-Diaries')">Save / Print</button>
   </div>
 </div>
@@ -461,6 +489,14 @@ body {
 
   </div>
   <div class="savebar">
+    <select class="page-select" onchange="go(+this.value); this.blur()">
+      <option value="0">Cover</option>
+      <option value="1">Princess Diaries</option>
+      <option value="2" selected>Girls Gone Wild</option>
+      <option value="3">Kiss the Miss</option>
+      <option value="4">Mermaids &amp; Matrimony</option>
+      <option value="5">Golden Girls</option>
+    </select>
     <button class="savebtn" onclick="printPage('t2','Girls-Gone-Wild')">Save / Print</button>
   </div>
 </div>
@@ -551,6 +587,14 @@ body {
 
   </div>
   <div class="savebar">
+    <select class="page-select" onchange="go(+this.value); this.blur()">
+      <option value="0">Cover</option>
+      <option value="1">Princess Diaries</option>
+      <option value="2">Girls Gone Wild</option>
+      <option value="3" selected>Kiss the Miss</option>
+      <option value="4">Mermaids &amp; Matrimony</option>
+      <option value="5">Golden Girls</option>
+    </select>
     <button class="savebtn" onclick="printPage('t3','Kiss-the-Miss')">Save / Print</button>
   </div>
 </div>
@@ -658,6 +702,14 @@ body {
 
   </div>
   <div class="savebar">
+    <select class="page-select" onchange="go(+this.value); this.blur()">
+      <option value="0">Cover</option>
+      <option value="1">Princess Diaries</option>
+      <option value="2">Girls Gone Wild</option>
+      <option value="3">Kiss the Miss</option>
+      <option value="4" selected>Mermaids &amp; Matrimony</option>
+      <option value="5">Golden Girls</option>
+    </select>
     <button class="savebtn" onclick="printPage('t4','Mermaids-Matrimony')">Save / Print</button>
   </div>
 </div>
@@ -759,6 +811,14 @@ body {
 
   </div>
   <div class="savebar">
+    <select class="page-select" onchange="go(+this.value); this.blur()">
+      <option value="0">Cover</option>
+      <option value="1">Princess Diaries</option>
+      <option value="2">Girls Gone Wild</option>
+      <option value="3">Kiss the Miss</option>
+      <option value="4">Mermaids &amp; Matrimony</option>
+      <option value="5" selected>Golden Girls</option>
+    </select>
     <button class="savebtn" onclick="printPage('t5','Golden-Girls')">Save / Print</button>
   </div>
 </div>

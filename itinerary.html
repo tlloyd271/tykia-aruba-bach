@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tykia's Bach · Aruba Itinerary</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Dancing+Script:wght@400;600;700&family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0d0d0d;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  color: #e8e8e0;
+  line-height: 1.6;
+}
+
+/* ── NAV ── */
+.topnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  background: linear-gradient(to bottom, rgba(10,10,10,0.95), rgba(10,10,10,0));
+}
+.nav-link {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 11px;
+  letter-spacing: .28em;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  transition: color .25s;
+}
+.nav-link:hover { color: #c9a96e; }
+.nav-logo {
+  font-family: 'Dancing Script', cursive;
+  font-size: 20px;
+  color: rgba(255,255,255,0.7);
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 85vh;
+  min-height: 520px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 64px;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+}
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.5) 0%,
+    rgba(0,0,0,0.15) 35%,
+    rgba(0,0,0,0.75) 70%,
+    rgba(13,13,13,1) 100%
+  );
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 24px;
+}
+.hero-eyebrow {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 11px;
+  letter-spacing: .55em;
+  color: rgba(201,169,110,0.7);
+  margin-bottom: 12px;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(14px, 3vw, 20px);
+  font-weight: 300;
+  letter-spacing: .25em;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+.hero-script {
+  font-family: 'Dancing Script', cursive;
+  font-weight: 700;
+  font-size: clamp(62px, 13vw, 120px);
+  color: #fff;
+  line-height: 0.88;
+  text-shadow: 0 4px 40px rgba(0,0,0,0.8);
+}
+.hero-script.gold { color: #c9a96e; }
+.hero-rule {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: center;
+  margin: 18px auto;
+}
+.rule-line {
+  width: 50px;
+  height: 1px;
+  background: rgba(201,169,110,0.35);
+}
+.rule-star { font-size: 10px; color: rgba(201,169,110,0.5); }
+.hero-sub {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 11px;
+  letter-spacing: .45em;
+  color: rgba(255,255,255,0.25);
+}
+
+/* ── OVERVIEW STRIP ── */
+.overview {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0;
+  border-top: 1px solid rgba(201,169,110,0.15);
+  border-bottom: 1px solid rgba(201,169,110,0.15);
+  background: rgba(201,169,110,0.04);
+  padding: 0;
+}
+.overview-item {
+  flex: 1;
+  min-width: 150px;
+  padding: 22px 24px;
+  text-align: center;
+  border-right: 1px solid rgba(201,169,110,0.12);
+}
+.overview-item:last-child { border-right: none; }
+.overview-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 9px;
+  letter-spacing: .45em;
+  color: rgba(201,169,110,0.5);
+  margin-bottom: 5px;
+}
+.overview-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 17px;
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── MAIN CONTENT ── */
+.content { max-width: 760px; margin: 0 auto; padding: 0 24px 100px; }
+
+/* ── DAY SECTION ── */
+.day-section { margin-top: 72px; }
+
+.day-header {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  margin-bottom: 8px;
+}
+.day-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 44px;
+  letter-spacing: .06em;
+  color: rgba(201,169,110,0.85);
+  line-height: 1;
+}
+.day-date {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: .05em;
+}
+
+.day-rule {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, rgba(201,169,110,0.5), rgba(201,169,110,0.1), transparent);
+  margin-bottom: 32px;
+}
+
+/* ── EVENT BLOCK ── */
+.event {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 0 24px;
+  margin-bottom: 36px;
+  position: relative;
+}
+.event::before {
+  content: '';
+  position: absolute;
+  left: 90px;
+  top: 6px;
+  bottom: -36px;
+  width: 1px;
+  background: rgba(201,169,110,0.12);
+}
+.event:last-child::before { display: none; }
+
+.event-time {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 11px;
+  letter-spacing: .22em;
+  color: rgba(201,169,110,0.55);
+  padding-top: 4px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.event-body { padding-left: 20px; }
+
+.event-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.event-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+
+.event-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.badge {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 9px;
+  letter-spacing: .25em;
+  padding: 5px 12px;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.badge-gold  { border-color: rgba(201,169,110,0.4); color: rgba(201,169,110,0.8); }
+.badge-white { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.5); }
+.badge-pink  { border-color: rgba(220,80,150,0.35); color: rgba(220,130,170,0.8); }
+.badge-teal  { border-color: rgba(0,180,216,0.35);  color: rgba(100,210,235,0.8); }
+.badge-red   { border-color: rgba(200,30,30,0.35);  color: rgba(230,100,100,0.8); }
+
+/* ── NIGHT THEME BANNER ── */
+.theme-banner {
+  position: relative;
+  overflow: hidden;
+  padding: 28px 28px;
+  margin-top: 32px;
+  margin-bottom: 10px;
+  border-left: 2px solid rgba(201,169,110,0.35);
+  background: rgba(201,169,110,0.05);
+}
+.theme-banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(201,169,110,0.04) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.theme-eyebrow {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 9px;
+  letter-spacing: .5em;
+  color: rgba(201,169,110,0.5);
+  margin-bottom: 4px;
+  position: relative;
+  z-index: 1;
+}
+.theme-name {
+  font-family: 'Dancing Script', cursive;
+  font-weight: 700;
+  font-size: clamp(32px, 7vw, 52px);
+  color: #fff;
+  line-height: 0.9;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.7);
+  position: relative;
+  z-index: 1;
+}
+.theme-name span { color: #c9a96e; }
+.theme-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── SECTION DIVIDER ── */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 64px 0 0;
+}
+.section-divider-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(201,169,110,0.12);
+}
+.section-divider-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 10px;
+  letter-spacing: .4em;
+  color: rgba(201,169,110,0.35);
+  white-space: nowrap;
+}
+
+/* ── IMPORTANT INFO ── */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 28px;
+}
+.info-card {
+  padding: 24px;
+  border: 1px solid rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.02);
+}
+.info-card-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 11px;
+  letter-spacing: .35em;
+  color: rgba(201,169,110,0.6);
+  margin-bottom: 14px;
+}
+.info-card-body {
+  font-size: 15px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.7;
+}
+.info-card-body strong {
+  color: rgba(255,255,255,0.75);
+  font-weight: 600;
+}
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center;
+  padding: 48px 24px;
+  border-top: 1px solid rgba(201,169,110,0.1);
+}
+.footer-script {
+  font-family: 'Dancing Script', cursive;
+  font-size: 38px;
+  color: rgba(201,169,110,0.4);
+}
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 16px;
+}
+.footer-link {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 10px;
+  letter-spacing: .35em;
+  color: rgba(255,255,255,0.25);
+  text-decoration: none;
+  transition: color .25s;
+}
+.footer-link:hover { color: #c9a96e; }
+
+@media (max-width: 600px) {
+  .event {
+    grid-template-columns: 1fr;
+    gap: 4px 0;
+  }
+  .event::before { display: none; }
+  .event-time { text-align: left; }
+  .event-body { padding-left: 0; }
+  .info-grid { grid-template-columns: 1fr; }
+  .overview-item { min-width: 140px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="topnav">
+  <a class="nav-link" href="index.html">← Home</a>
+  <div class="nav-logo">Tykia's Bach</div>
+  <a class="nav-link" href="themes.html">Theme Guide →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="pics/tykia nas cheers.jpg" alt="Tykia">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ &nbsp; The Official &nbsp; ✦</div>
+    <div class="hero-title">Aruba Bachelorette</div>
+    <div class="hero-script">Trip</div>
+    <div class="hero-script gold">Itinerary</div>
+    <div class="hero-rule">
+      <div class="rule-line"></div>
+      <div class="rule-star">✦</div>
+      <div class="rule-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW STRIP -->
+<div class="overview">
+  <div class="overview-item">
+    <div class="overview-label">Destination</div>
+    <div class="overview-value">Aruba</div>
+  </div>
+  <div class="overview-item">
+    <div class="overview-label">Accommodation</div>
+    <div class="overview-value">Ponton 34G, Oranjestad,  00000</div>
+  </div>
+  <div class="overview-item">
+    <div class="overview-label">Dates</div>
+    <div class="overview-value">June 25th-June 28th</div>
+  </div>
+  <div class="overview-item">
+    <div class="overview-label">The Girls</div>
+    <div class="overview-value">9 bridesmaids + The Bride</div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- ═══════════ EARLY ARRIVALS ═══════════ -->
+  <div class="day-section" style="opacity:0.65;">
+    <div class="day-header">
+      <div class="day-num" style="font-size:32px;color:rgba(201,169,110,0.6);">Early Arrivals</div>
+      <div class="day-date">Wednesday, June 24th</div>
+    </div>
+    <div class="day-rule"></div>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.3);margin-bottom:28px;">For those arriving a day early — festivities begin Thursday once the full crew is together.</p>
+
+    <div class="event">
+      <div class="event-time">1:00 PM</div>
+      <div class="event-body">
+        <div class="event-name">Arrive in Aruba</div>
+        <div class="event-desc">Land in paradise early and head straight to the villa.</div>
+        <div class="event-meta">
+          <div class="badge badge-white">Ponton 34G, Oranjestad</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="event">
+      <div class="event-time">4:00 PM</div>
+      <div class="event-body">
+        <div class="event-name">Check-In</div>
+        <div class="event-desc">Get settled in and enjoy the calm before the storm. The rest of the girls arrive tomorrow.</div>
+        <div class="event-meta">
+          <div class="badge badge-white">Oranjestad</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ DAY ONE ═══════════ -->
+  <div class="day-section">
+    <div class="day-header">
+      <div class="day-num">Day One</div>
+      <div class="day-date">Thursday, June 25th</div>
+    </div>
+    <div class="day-rule"></div>
+
+    <div class="event">
+      <div class="event-time">All Day</div>
+      <div class="event-body">
+        <div class="event-name">Arrivals & Check-In</div>
+        <div class="event-desc">Touch down in paradise. Check into the airbnb, drop your bags, and ease into island time. First drinks are on the house — you made it.</div>
+        <div class="event-meta">
+          <div class="badge badge-white">Ponton 34G, Oranjestad,  00000</div>
+          <div class="badge badge-white">Casual Arrival Looks</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="event">
+      <div class="event-time">8:00 PM</div>
+      <div class="event-body">
+        <div class="event-name">Welcome Dinner with Chef Ruben</div>
+        <div class="event-desc">The whole crew together for the first time. A private chef dinner, toasts, and setting the tone for the weekend.</div>
+        <div class="event-meta">
+          <div class="badge badge-white">8:00 PM – 10:00 PM</div>
+          <div class="badge badge-white">Ponton 34G</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NIGHT THEME -->
+    <div class="theme-banner">
+      <div class="theme-eyebrow">Night One · Theme</div>
+      <div class="theme-name">Princess <span>Diaries</span></div>
+      <div class="theme-tagline">Slumber party energy — matching PJs, tiaras, and girl talk</div>
+    </div>
+
+    <div class="event">
+      <div class="event-time">After Dinner</div>
+      <div class="event-body">
+        <div class="event-name">Slumber Party Night</div>
+        <div class="event-desc">Games, snacks, face masks, and all the things. A princess doesn't need a prince — she just needs her girls.</div>
+        <div class="event-meta">
+          <div class="badge badge-pink">Matching PJs</div>
+          <div class="badge badge-pink">Tiaras & Sashes</div>
+          <div class="badge badge-pink">Ponton 34G</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ DAY TWO ═══════════ -->
+  <div class="day-section">
+    <div class="day-header">
+      <div class="day-num">Day Two</div>
+      <div class="day-date">Friday, June 26th</div>
+    </div>
+    <div class="day-rule"></div>
+
+    <!-- DAY THEME -->
+    <div class="theme-banner">
+      <div class="theme-eyebrow">Day Two · Theme</div>
+      <div class="theme-name">Girls Gone <span>Wild</span></div>
+      <div class="theme-tagline">Bride in white, bridesmaids in animal print — boat day vibes</div>
+    </div>
+
+    <div class="event">
+      <div class="event-time">9:15 AM</div>
+      <div class="event-body">
+        <div class="event-name">Transportation to the Boat</div>
+        <div class="event-desc">Don't be late — the boat won't wait. Meet downstairs ready to go.</div>
+        <div class="event-meta">
+          <div class="badge badge-gold">Bride: White</div>
+          <div class="badge badge-gold">Girls: Animal Print</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="event">
+      <div class="event-time">9:30 AM</div>
+      <div class="event-body">
+        <div class="event-name">Boat Day</div>
+        <div class="event-desc">All aboard. Sun, sea, music, and nothing but open water. This is the day you've been dreaming about.</div>
+        <div class="event-meta">
+          <div class="badge badge-white">9:30 AM – 2:00 PM</div>
+          <div class="badge badge-white">De Palm Pier</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="event">
+      <div class="event-time">2:00 PM</div>
+      <div class="event-body">
+        <div class="event-name">Return & Refresh</div>
+        <div class="event-desc">Back on land. Quick reset, re-glam, and get ready for the night.</div>
+      </div>
+    </div>
+
+    <!-- NIGHT THEME -->
+    <div class="theme-banner">
+      <div class="theme-eyebrow">Night Two · Theme</div>
+      <div class="theme-name">Kiss the Miss <span>Goodbye</span></div>
+      <div class="theme-tagline">Bride in white, her girls in all red — dinner and the night</div>
+    </div>
+
+    <div class="event">
+      <div class="event-time">8:15 PM</div>
+      <div class="event-body">
+        <div class="event-name">Dinner</div>
+        <div class="event-desc">A proper sit-down before the night really starts. Dress to impress.</div>
+        <div class="event-meta">
+          <div class="badge badge-red">Bride: White</div>
+          <div class="badge badge-red">Girls: All Red</div>
+          <div class="badge badge-white">8:15 PM – 10:15 PM</div>
+          <div class="badge badge-white">Bohemian Bar & Restaurant</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="event">
+      <div class="event-time">After Dinner</div>
+      <div class="event-body">
+        <div class="event-name">Night Out</div>
+        <div class="event-desc">The girls are out. Dance floors, late nights, unforgettable memories.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ DAY THREE ═══════════ -->
+  <div class="day-section">
+    <div class="day-header">
+      <div class="day-num">Day Three</div>
+      <div class="day-date">Saturday, June 27th</div>
+    </div>
+    <div class="day-rule"></div>
+
+    <!-- DAY THEME -->
+    <div class="theme-banner">
+      <div class="theme-eyebrow">Beach Day · Theme</div>
+      <div class="theme-name">Mermaids & <span>Matrimony</span></div>
+      <div class="theme-tagline">Pastels, sequins, and the sea — she found her sailor</div>
+    </div>
+
+    <div class="event">
+      <div class="event-time">9:00 AM</div>
+      <div class="event-body">
+        <div class="event-name">Transportation to the Beach</div>
+        <div class="event-desc">Meet downstairs and ready to go. Flamingo Beach doesn't wait.</div>
+        <div class="event-meta">
+          <div class="badge badge-teal">Pastels & Sequins</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="event">
+      <div class="event-time">9:45 AM</div>
+      <div class="event-body">
+        <div class="event-name">Flamingo Beach</div>
+        <div class="event-desc">Pink flamingos, crystal water, and your whole crew. This is the one you'll keep talking about — soak it all in.</div>
+        <div class="event-meta">
+          <div class="badge badge-teal">9:45 AM – 5:00 PM</div>
+          <div class="badge badge-white">Palm Island, Aruba</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="event">
+      <div class="event-time">5:00 PM</div>
+      <div class="event-body">
+        <div class="event-name">Return & Refresh</div>
+        <div class="event-desc">Head back and get gorgeous for the grand finale.</div>
+      </div>
+    </div>
+
+    <!-- NIGHT THEME -->
+    <div class="theme-banner">
+      <div class="theme-eyebrow">Night Three · Grand Finale</div>
+      <div class="theme-name">Golden <span>Girls</span></div>
+      <div class="theme-tagline">Gold, bronze, champagne — thank you for being a friend</div>
+    </div>
+
+    <div class="event">
+      <div class="event-time">[Time] PM</div>
+      <div class="event-body">
+        <div class="event-name">Grand Finale Dinner</div>
+        <div class="event-desc">The last supper. Toasts, tears, and all the love. Make it one to remember.</div>
+        <div class="event-meta">
+          <div class="badge badge-gold">Gold / Bronze / Champagne</div>
+          <div class="badge badge-white">[Restaurant Name]</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="event">
+      <div class="event-time">[Time] PM</div>
+      <div class="event-body">
+        <div class="event-name">Final Night Out</div>
+        <div class="event-desc">Last dance on the last night. Leave it all on the floor.</div>
+        <div class="event-meta">
+          <div class="badge badge-white">[Venue]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ DAY FOUR ═══════════ -->
+  <div class="day-section">
+    <div class="day-header">
+      <div class="day-num">Day Four</div>
+      <div class="day-date">Sunday, June 28th</div>
+    </div>
+    <div class="day-rule"></div>
+
+    <div class="event">
+      <div class="event-time">11:00 AM</div>
+      <div class="event-body">
+        <div class="event-name">Check-Out & Departures</div>
+        <div class="event-desc">Safe travels, gorgeous. Until the wedding.</div>
+        <div class="event-meta">
+          <div class="badge badge-white">Check-out: 11:00 AM</div>
+          <div class="badge badge-white">Oranjestad</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ IMPORTANT INFO ═══════════ -->
+  <div class="section-divider">
+    <div class="section-divider-line"></div>
+    <div class="section-divider-text">Important Info</div>
+    <div class="section-divider-line"></div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-card-title">Hotel</div>
+      <div class="info-card-body">
+        <strong>Accommodation</strong><br>
+        Ponton 34G, Oranjestad,  00000<br>
+        Check-in: 4PM<br>
+        Check-out: 11AM
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-title">Flights</div>
+      <div class="info-card-body">
+        Book your own flights to<br>
+        <strong>Queen Beatrix International Airport (AUA)</strong><br>
+      </div>
+    </div>
+<div class="info-card">
+      <div class="info-card-title">Contacts</div>
+      <div class="info-card-body">
+        <strong>MOH:</strong> Tanaja - 215-919-5039<br>
+        <strong>Bride:</strong> Tykia<br>
+        <strong>Group Chat:</strong> Tykia's Bride Squad 👰🏾
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════ PACKING LIST ═══════════ -->
+  <div class="section-divider" style="margin-top:64px;">
+    <div class="section-divider-line"></div>
+    <div class="section-divider-text">Packing List</div>
+    <div class="section-divider-line"></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px;">
+
+    <div class="info-card">
+      <div class="info-card-title">Themed Outfits</div>
+      <div class="info-card-body">
+        <strong>Night One</strong> — Matching PJs + Tiara<br>
+        <strong>Day Two</strong> — Animal Print Swim Attire<br>
+        <strong>Night Two</strong> — All Red<br>
+        <strong>Beach Day</strong> — Pastels & Sequins<br>
+        <strong>Night Three</strong> — Gold / Bronze / Champagne
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-title">Beach Bag</div>
+      <div class="info-card-body">
+        Sunscreen (SPF 50+)<br>
+        Sunglasses<br>
+        Hat / visor<br>
+        Beach towel<br>
+        Reusable water bottle<br>
+        Waterproof phone case
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-title">Boat Day Extras</div>
+      <div class="info-card-body">
+        Motion sickness meds (just in case)<br>
+        Extra sunscreen<br>
+        Coverup / wrap<br>
+        Waterproof sandals<br>
+        Cash / card for extras<br>
+        Dry bag for your phone
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-title">Don't Forget</div>
+      <div class="info-card-body">
+        Passport<br>
+        Travel insurance<br>
+        Any prescriptions<br>
+        Portable charger<br>
+        Venmo / cash for group expenses<br>
+        Good vibes only
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /content -->
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-script">Tykia's Bach</div>
+  <div class="footer-links">
+    <a class="footer-link" href="index.html">Home</a>
+    <a class="footer-link" href="themes.html">Theme Guide</a>
+  </div>
+</footer>
+
+</body>
+</html>

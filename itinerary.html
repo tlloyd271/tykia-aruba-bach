@@ -386,6 +386,14 @@ body {
 }
 .footer-link:hover { color: #c9a96e; }
 
+/* ── PAST DAY DIMMING ── */
+.day-past {
+  opacity: 0.22 !important;
+  filter: grayscale(0.5);
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
 /* ── FLIGHT ROWS ── */
 .flight-group { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
 .flight-row {
@@ -476,7 +484,7 @@ body {
   </div>
   <div class="overview-item">
     <div class="overview-label">The Girls</div>
-    <div class="overview-value">9 bridesmaids + The Bride</div>
+    <div class="overview-value">The Bride + 9 </div>
   </div>
 </div>
 
@@ -484,7 +492,7 @@ body {
 <div class="content">
 
   <!-- ═══════════ EARLY ARRIVALS ═══════════ -->
-  <div class="day-section" style="opacity:0.65;">
+  <div class="day-section" id="day-jun24" style="opacity:0.65;">
     <div class="day-header">
       <div class="day-num" style="font-size:32px;color:rgba(201,169,110,0.6);">Early Arrivals</div>
       <div class="day-date">Wednesday, June 24th</div>
@@ -516,7 +524,7 @@ body {
   </div>
 
   <!-- ═══════════ DAY ONE ═══════════ -->
-  <div class="day-section">
+  <div class="day-section" id="day-jun25">
     <div class="day-header">
       <div class="day-num">Day One</div>
       <div class="day-date">Thursday, June 25th</div>
@@ -569,7 +577,7 @@ body {
   </div>
 
   <!-- ═══════════ DAY TWO ═══════════ -->
-  <div class="day-section">
+  <div class="day-section" id="day-jun26">
     <div class="day-header">
       <div class="day-num">Day Two</div>
       <div class="day-date">Friday, June 26th</div>
@@ -646,7 +654,7 @@ body {
   </div>
 
   <!-- ═══════════ DAY THREE ═══════════ -->
-  <div class="day-section">
+  <div class="day-section" id="day-jun27">
     <div class="day-header">
       <div class="day-num">Day Three</div>
       <div class="day-date">Saturday, June 27th</div>
@@ -723,7 +731,7 @@ body {
   </div>
 
   <!-- ═══════════ DAY FOUR ═══════════ -->
-  <div class="day-section">
+  <div class="day-section" id="day-jun28">
     <div class="day-header">
       <div class="day-num">Day Four</div>
       <div class="day-date">Sunday, June 28th</div>
@@ -869,7 +877,7 @@ body {
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px;">
 
     <div class="info-card">
-      <div class="info-card-title">Themed Outfits</div>
+      <div class="info-card-title" style="display:flex;align-items:center;gap:10px;">Themed Outfits <a href="themes.html" style="font-size:8px;letter-spacing:.3em;color:rgba(201,169,110,0.55);text-decoration:none;border-bottom:1px solid rgba(201,169,110,0.25);padding-bottom:1px;transition:color .2s;" onmouseover="this.style.color='rgba(201,169,110,0.9)'" onmouseout="this.style.color='rgba(201,169,110,0.55)'">VIEW GUIDE</a></div>
       <div class="info-card-body">
         <strong>Night One</strong> — Matching PJs + Tiara<br>
         <strong>Day Two</strong> — Animal Print Swim Attire<br>
@@ -927,6 +935,39 @@ body {
     <a class="footer-link" href="themes.html">Theme Guide</a>
   </div>
 </footer>
+
+<script>
+(function() {
+  var days = [
+    { id: 'day-jun24', date: new Date('2026-06-24T00:00:00') },
+    { id: 'day-jun25', date: new Date('2026-06-25T00:00:00') },
+    { id: 'day-jun26', date: new Date('2026-06-26T00:00:00') },
+    { id: 'day-jun27', date: new Date('2026-06-27T00:00:00') },
+    { id: 'day-jun28', date: new Date('2026-06-28T00:00:00') },
+  ];
+
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  var currentIdx = days.findIndex(function(d) { return d.date >= today; });
+  if (currentIdx === -1) currentIdx = days.length - 1;
+
+  days.forEach(function(d, i) {
+    if (i < currentIdx) {
+      var el = document.getElementById(d.id);
+      if (el) el.classList.add('day-past');
+    }
+  });
+
+  var currentEl = document.getElementById(days[currentIdx].id);
+  if (currentEl) {
+    setTimeout(function() {
+      var top = currentEl.getBoundingClientRect().top + window.pageYOffset - 88;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }, 350);
+  }
+})();
+</script>
 
 </body>
 </html>

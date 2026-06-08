@@ -427,6 +427,103 @@ body {
 }
 .flight-section-label:first-child { margin-top: 0; }
 
+/* ── PARKING POPUP ── */
+.park-btn {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 9px;
+  letter-spacing: .25em;
+  padding: 5px 12px;
+  border: 1px solid rgba(80,200,140,0.35);
+  color: rgba(100,220,160,0.75);
+  background: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color .2s, color .2s;
+}
+.park-btn:hover { border-color: rgba(80,200,140,0.7); color: rgba(130,240,190,1); }
+
+.park-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(0,0,0,0.72);
+  backdrop-filter: blur(4px);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.park-overlay.open { display: flex; }
+.park-modal {
+  background: #141414;
+  border: 1px solid rgba(201,169,110,0.18);
+  max-width: 400px;
+  width: 100%;
+  padding: 32px;
+  position: relative;
+}
+.park-modal-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 10px;
+  letter-spacing: .45em;
+  color: rgba(100,220,160,0.65);
+  margin-bottom: 22px;
+}
+.park-option { margin-bottom: 18px; }
+.park-option:last-child { margin-bottom: 0; }
+.park-option-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 2px;
+}
+.park-option-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 10px;
+  letter-spacing: .3em;
+  color: rgba(201,169,110,0.65);
+  margin-bottom: 4px;
+}
+.park-option-note {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 6px;
+}
+.park-option-addr {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 6px;
+}
+.park-map-link {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 9px;
+  letter-spacing: .3em;
+  color: rgba(100,220,160,0.6);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(100,220,160,0.2);
+  transition: color .2s, border-color .2s;
+}
+.park-map-link:hover { color: rgba(150,240,200,0.9); border-color: rgba(150,240,200,0.5); }
+.park-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 16px 0; }
+.park-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 10px;
+  letter-spacing: .3em;
+  color: rgba(255,255,255,0.25);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color .2s;
+}
+.park-close:hover { color: rgba(255,255,255,0.65); }
+
 @media (max-width: 600px) {
   .event {
     grid-template-columns: 1fr;
@@ -611,6 +708,7 @@ body {
         <div class="event-meta">
           <div class="badge badge-white">9:30 AM – 2:00 PM</div>
           <div class="badge badge-white">De Palm Pier</div>
+          <button class="park-btn" onclick="openParking('boat')">P  PARKING</button>
         </div>
       </div>
     </div>
@@ -640,6 +738,7 @@ body {
           <div class="badge badge-red">Girls: All Red</div>
           <div class="badge badge-white">8:15 PM – 10:15 PM</div>
           <div class="badge badge-white">Bohemian Bar & Restaurant</div>
+          <button class="park-btn" onclick="openParking('bohemian')">P  PARKING</button>
         </div>
       </div>
     </div>
@@ -687,6 +786,7 @@ body {
         <div class="event-meta">
           <div class="badge badge-teal">9:45 AM – 5:00 PM</div>
           <div class="badge badge-white">Palm Island, Aruba</div>
+          <button class="park-btn" onclick="openParking('depalm')">P  PARKING</button>
         </div>
       </div>
     </div>
@@ -714,6 +814,7 @@ body {
         <div class="event-meta">
           <div class="badge badge-gold">Gold / Bronze / Champagne</div>
           <div class="badge badge-white">Lola Taqueria</div>
+          <button class="park-btn" onclick="openParking('lola')">P  PARKING</button>
         </div>
       </div>
     </div>
@@ -725,6 +826,7 @@ body {
         <div class="event-desc">Last dance on the last night. Leave it all on the floor.</div>
         <div class="event-meta">
           <div class="badge badge-white">Apotek Speakeasy</div>
+          <button class="park-btn" onclick="openParking('apotek')">P  PARKING</button>
         </div>
       </div>
     </div>
@@ -929,6 +1031,14 @@ body {
 
 </div><!-- /content -->
 
+<!-- PARKING MODAL -->
+<div class="park-overlay" id="parkOverlay" onclick="if(event.target===this)closeParking()">
+  <div class="park-modal">
+    <button class="park-close" onclick="closeParking()">CLOSE ✕</button>
+    <div id="parkModalContent"></div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-script">Tykia's Bach</div>
@@ -969,6 +1079,97 @@ body {
     }, 350);
   }
 })();
+</script>
+
+<script>
+var parkingData = {
+  boat: {
+    title: 'PARKING · BOAT DAY',
+    options: [
+      {
+        name: 'Hilton Aruba Caribbean Resort & Casino',
+        price: 'FREE',
+        addr: 'Palm Beach, Noord, Aruba',
+        map: 'https://maps.google.com/?q=Hilton+Aruba+Caribbean+Resort+Casino,+Palm+Beach,+Noord,+Aruba'
+      },
+      {
+        name: 'Barceló Aruba – All Inclusive',
+        price: '$5 / DAY',
+        addr: 'Palm Beach, Aruba',
+        map: 'https://maps.google.com/?q=Barcelo+Aruba+All+Inclusive,+Palm+Beach,+Aruba'
+      }
+    ]
+  },
+  bohemian: {
+    title: 'PARKING · BOHEMIAN BAR & RESTAURANT',
+    options: [
+      {
+        name: 'Parking at the Restaurant',
+        price: 'ON-SITE',
+        addr: null,
+        map: 'https://maps.google.com/?q=Bohemian+Bar+%26+Restaurant,+Aruba'
+      }
+    ]
+  },
+  depalm: {
+    title: 'PARKING · FLAMINGO BEACH',
+    options: [
+      {
+        name: 'De Palm Island Ferry Terminal',
+        price: 'INCLUDED',
+        addr: 'De Palm Island Way Z/N, Oranjestad, Aruba',
+        map: 'https://maps.google.com/?q=De+Palm+Island+Ferry+Terminal,+De+Palm+Island+Way,+Oranjestad,+Aruba'
+      }
+    ]
+  },
+  lola: {
+    title: 'PARKING · LOLA TAQUERIA',
+    options: [
+      {
+        name: 'Parking at the Restaurant',
+        price: 'ON-SITE',
+        addr: null,
+        map: 'https://maps.google.com/?q=Lola+Taqueria,+Aruba'
+      }
+    ]
+  },
+  apotek: {
+    title: 'PARKING · APOTEK SPEAKEASY',
+    options: [
+      {
+        name: 'Street Parking',
+        price: 'FREE',
+        note: 'Mixed reviews on availability — give yourself extra time to find a spot.',
+        addr: 'Oranjestad, Aruba',
+        map: 'https://maps.google.com/?q=Apotek+Speakeasy,+Oranjestad,+Aruba'
+      }
+    ]
+  }
+};
+
+function openParking(id) {
+  var data = parkingData[id];
+  if (!data) return;
+  var html = '<div class="park-modal-title">' + data.title + '</div>';
+  data.options.forEach(function(opt, i) {
+    if (i > 0) html += '<div class="park-divider"></div>';
+    html += '<div class="park-option">';
+    html += '<div class="park-option-name">' + opt.name + '</div>';
+    if (opt.price) html += '<div class="park-option-price">' + opt.price + '</div>';
+    if (opt.note) html += '<div class="park-option-note">' + opt.note + '</div>';
+    if (opt.addr) html += '<div class="park-option-addr">' + opt.addr + '</div>';
+    html += '<a class="park-map-link" href="' + opt.map + '" target="_blank" rel="noopener">OPEN IN GOOGLE MAPS →</a>';
+    html += '</div>';
+  });
+  document.getElementById('parkModalContent').innerHTML = html;
+  document.getElementById('parkOverlay').classList.add('open');
+}
+
+function closeParking() {
+  document.getElementById('parkOverlay').classList.remove('open');
+}
+
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeParking(); });
 </script>
 
 </body>
